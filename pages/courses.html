@@ -104,7 +104,7 @@
 
                 // Show loading state
                 const courseGrid = document.getElementById('course-grid');
-                courseGrid.innerHTML = '<div class="loading">पाठ्यक्रमहरू लोड हुँदैछ...</div>';
+                courseGrid.innerHTML = '<div class="loading">Courses loading...</div>';
 
                 const data = await API.getCourses(category, search);
 
@@ -112,7 +112,7 @@
                     courseGrid.innerHTML = data.courses.map(course => {
                         const badgeClass = `badge-${course.badge.toLowerCase()}`;
                         const priceHTML = course.price === 0
-                            ? '<span class="price-current">निःशुल्क</span>'
+                            ? '<span class="price-current">Free</span>'
                             : `<span class="price-current">रू ${course.price.toLocaleString('ne-NP')}</span>${course.oldPrice ? `<span class="price-old">रू ${course.oldPrice.toLocaleString('ne-NP')}</span>` : ''}`;
 
                         return `
@@ -153,7 +153,7 @@
                         `;
                     }).join('');
                 } else {
-                    courseGrid.innerHTML = '<div class="no-results">कुनै पाठ्यक्रम फेला परेन।</div>';
+                    courseGrid.innerHTML = '<div class="no-results">No courses found</div>';
                 }
             });
         });

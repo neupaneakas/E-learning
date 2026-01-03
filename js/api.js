@@ -129,7 +129,7 @@ const Utils = {
 
     // Show loading state
     showLoading(element) {
-        element.innerHTML = '<div class="loading">लोड हुँदैछ...</div>';
+        element.innerHTML = '<div class="loading">Loading...</div>';
     },
 
     // Show error message
