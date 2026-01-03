@@ -755,10 +755,49 @@ button {
     .nav-menu,
     .nav-actions {
         display: none;
+        flex-direction: column;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        background: var(--bg-white);
+        padding: 24px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: var(--transition);
+    }
+
+    .nav-menu {
+        top: 72px;
+        /* Based on header height */
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-actions {
+        top: calc(72px + 280px);
+        /* Position it below nav-menu */
+        padding-top: 0;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-menu.active,
+    .nav-actions.active {
+        display: flex;
     }
 
     .mobile-menu-toggle {
         display: flex;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
     }
 
     .hero-content {
