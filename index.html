@@ -2,22 +2,31 @@
 <html lang="en">
 
 <head>
+    <!-- This is the head section. It holds settings for the page, not visible content. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduLe - Start Your Learning Journey</title>
+
+    <!-- Description for search engines -->
     <meta name="description"
         content="Learn from anywhere and build your bright career with EduLe's comprehensive online courses">
+
+    <!-- Loading Google Fonts (Inter font) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Linking our CSS file for styling -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <!-- Header -->
+    <!-- Header Section: Contains the Logo and Navigation Menu -->
     <header class="header">
         <div class="container">
             <nav class="navbar">
+                <!-- Logo Area -->
                 <div class="logo">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#23BD33" />
@@ -27,6 +36,7 @@
                     <span class="logo-text">EduLe</span>
                 </div>
 
+                <!-- Main Menu Links -->
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link active">Home</a></li>
                     <li><a href="pages/courses.html" class="nav-link">All Course</a></li>
@@ -35,11 +45,13 @@
                     <li><a href="pages/contact.html" class="nav-link">Contact</a></li>
                 </ul>
 
+                <!-- Right side buttons (Sign In / Sign Up) -->
                 <div class="nav-actions">
                     <a href="pages/signin.html" class="btn-text">Sign In</a>
                     <a href="pages/signup.html" class="btn btn-primary">Sign Up</a>
                 </div>
 
+                <!-- Mobile Menu Button (Hamburger) -->
                 <button class="mobile-menu-toggle" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
@@ -50,9 +62,11 @@
     </header>
 
     <!-- Hero Section -->
+    <!-- Hero Section: The big main banner at the top -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
+                <!-- Left side text -->
                 <div class="hero-text">
                     <div class="hero-badge">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -70,6 +84,7 @@
                         electronic typesetting.</p>
                     <button class="btn btn-primary btn-large">Start A Course</button>
                 </div>
+                <!-- Right side image -->
                 <div class="hero-image">
                     <div class="hero-image-wrapper">
                         <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=700&fit=crop"
@@ -106,6 +121,7 @@
             </div>
 
             <!-- Category Filter -->
+            <!-- Category Filter Buttons -->
             <div class="category-filter">
                 <button class="category-btn active">UI/UX Design</button>
                 <button class="category-btn">Development</button>

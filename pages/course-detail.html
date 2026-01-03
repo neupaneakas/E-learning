@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - EduLe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <!-- Internal styles for course detail layout -->
+    <style>
+        .course-detail-hero {
+            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-light) 100%);
+            padding: 120px 0 60px;
+        }
+
+        .course-detail-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 48px;
+            margin-top: -80px;
+        }
+
+        .course-main {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .course-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .course-card-detail {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .course-image-large {
+            width: 100%;
+            height: 300px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            margin-bottom: 24px;
+        }
+
+        .course-price-large {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .course-old-price {
+            font-size: 20px;
+            color: var(--text-light);
+            text-decoration: line-through;
+            margin-left: 12px;
+        }
+
+        .course-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+            padding: 24px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .course-info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .course-info-item svg {
+            flex-shrink: 0;
+        }
+
+        .enroll-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+            margin-top: 24px;
+        }
+
+        .course-tabs {
+            display: flex;
+            gap: 32px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 32px;
+        }
+
+        .tab-btn {
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .syllabus-list {
+            list-style: none;
+        }
+
+        .syllabus-item {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .syllabus-item:last-child {
+            border-bottom: none;
+        }
+
+        .instructor-card {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-top: 24px;
+        }
+
+        .instructor-avatar-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .related-courses {
+            margin-top: 80px;
+        }
+
+        @media (max-width: 1024px) {
+            .course-detail-content {
+                grid-template-columns: 1fr;
+            }
+
+            .course-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#23BD33" />
+                        <path d="M2 17L12 22L22 17" stroke="#23BD33" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#23BD33" stroke-width="2" />
+                    </svg>
+                    <span class="logo-text">EduLe</span>
+                </div>
+
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="courses.html" class="nav-link active">All Course</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="signin.html" class="btn-text">Sign In</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Course Detail Hero -->
+    <section class="course-detail-hero">
+        <div class="container">
+            <div id="course-hero"></div>
+        </div>
+    </section>
+
+    <!-- Course Detail Content -->
+    <section style="padding: 60px 0;">
+        <div class="container">
+            <div class="course-detail-content">
+                <!-- Main Content on the Left -->
+                <div class="course-main">
+                    <!-- Tabs -->
+                    <div class="course-tabs">
+                        <button class="tab-btn active" data-tab="overview">Overview</button>
+                        <button class="tab-btn" data-tab="syllabus">Syllabus</button>
+                        <button class="tab-btn" data-tab="instructor">Instructor</button>
+                    </div>
+
+                    <!-- Tab Contents (Hidden by default, shown by JS) -->
+                    <div class="tab-content active" id="overview"></div>
+                    <div class="tab-content" id="syllabus"></div>
+                    <div class="tab-content" id="instructor"></div>
+                </div>
+
+                <!-- Sticky Sidebar on the Right -->
+                <div class="course-sidebar">
+                    <div class="course-card-detail" id="course-sidebar"></div>
+                </div>
+            </div>
+
+            <!-- Related Courses Section -->
+            <div class="related-courses">
+                <h2 class="section-title">Related <span class="highlight">Courses</span></h2>
+                <div class="course-grid" id="related-courses" style="margin-top: 32px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 EduLe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // Get course ID from URL query string
+        const courseId = Utils.getUrlParameter('id');
+
+        // Logic for Switching Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.dataset.tab;
+
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+
+        // Load course details
+        async function loadCourseDetails() {
+            if (!courseId) {
+                window.location.href = 'courses.html';
+                return;
+            }
+
+            try {
+                const data = await API.getCourse(courseId);
+
+                if (!data.success) {
+                    alert('Course not found');
+                    window.location.href = 'courses.html';
+                    return;
+                }
+
+                const course = data.course;
+
+                // Hero section
+                document.getElementById('course-hero').innerHTML = `
+                    <h1 style="font-size: 42px; font-weight: 700; margin-bottom: 16px;">${course.title}</h1>
+                    <p style="font-size: 18px; color: var(--text-secondary); margin-bottom: 24px;">${course.description}</p>
+                    <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <img src="${course.instructorAvatar}" alt="${course.instructor}" style="width: 40px; height: 40px; border-radius: 50%;">
+                            <span style="font-weight: 500;">${course.instructor}</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="color: #FFD700;">★</span>
+                            <span>${course.rating} (${course.grades} reviews)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span>${course.students} students</span>
+                        </div>
+                    </div>
+                `;
+
+                // Sidebar
+                const priceHTML = course.price === 0
+                    ? '<div class="course-price-large">निःशुल्क</div>'
+                    : `<div class="course-price-large">रू ${course.price.toLocaleString('ne-NP')}${course.oldPrice ? `<span class="course-old-price">रू ${course.oldPrice.toLocaleString('ne-NP')}</span>` : ''}</div>`;
+
+                document.getElementById('course-sidebar').innerHTML = `
+                    <img src="${course.image}" alt="${course.title}" class="course-image-large">
+                    ${priceHTML}
+                    <div class="course-info-grid">
+                        <div class="course-info-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 2L12.5 7.5L18 8L14 12L15 18L10 15L5 18L6 12L2 8L7.5 7.5L10 2Z" fill="#FFD700"/>
+                            </svg>
+                            <div>
+                                <div style="font-weight: 600;">${course.rating}</div>
+                                <div style="font-size: 13px; color: var(--text-secondary);">Rating</div>
+                            </div>
+                        </div>
+                        <div class="course-info-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <rect x="3" y="4" width="14" height="12" rx="1" stroke="var(--primary-color)" stroke-width="2"/>
+                                <path d="M8 7L12 10L8 13V7Z" fill="var(--primary-color)"/>
+                            </svg>
+                            <div>
+                                <div style="font-weight: 600;">${course.lectures}</div>
+                                <div style="font-size: 13px; color: var(--text-secondary);">Lectures</div>
+                            </div>
+                        </div>
+                        <div class="course-info-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="8" stroke="var(--primary-color)" stroke-width="2"/>
+                                <path d="M10 6V10L13 13" stroke="var(--primary-color)" stroke-width="2"/>
+                            </svg>
+                            <div>
+                                <div style="font-weight: 600;">${course.duration}</div>
+                                <div style="font-size: 13px; color: var(--text-secondary);">Duration</div>
+                            </div>
+                        </div>
+                        <div class="course-info-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 6L10 2L16 6V14L10 18L4 14V6Z" stroke="var(--primary-color)" stroke-width="2"/>
+                            </svg>
+                            <div>
+                                <div style="font-weight: 600;">${course.level}</div>
+                                <div style="font-size: 13px; color: var(--text-secondary);">Level</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary enroll-btn" id="enroll-btn">Enroll Now</button>
+                `;
+
+                // Overview tab
+                document.getElementById('overview').innerHTML = `
+                    <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 16px;">About This Course</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">${course.description}</p>
+                    <h4 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">What You'll Learn</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        ${course.syllabus.slice(0, 4).map(item => `
+                            <li style="padding: 12px 0; display: flex; gap: 12px;">
+                                <span style="color: var(--primary-color);">✓</span>
+                                <span>${item}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+
+                // Syllabus tab
+                document.getElementById('syllabus').innerHTML = `
+                    <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px;">Course Syllabus</h3>
+                    <ul class="syllabus-list">
+                        ${course.syllabus.map((item, index) => `
+                            <li class="syllabus-item">
+                                <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary-light); color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-weight: 600;">
+                                    ${index + 1}
+                                </div>
+                                <span>${item}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+
+                // Instructor tab
+                document.getElementById('instructor').innerHTML = `
+                    <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px;">About the Instructor</h3>
+                    <div class="instructor-card">
+                        <img src="${course.instructorAvatar}" alt="${course.instructor}" class="instructor-avatar-large">
+                        <div>
+                            <h4 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">${course.instructor}</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 12px;">${course.category} Expert</p>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Experienced instructor with years of expertise in ${course.category}. 
+                                Passionate about teaching and helping students achieve their learning goals.
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                // Related courses
+                if (data.relatedCourses && data.relatedCourses.length > 0) {
+                    const relatedHTML = data.relatedCourses.map(course => {
+                        const badgeClass = `badge-${course.badge.toLowerCase()}`;
+                        const priceHTML = course.price === 0
+                            ? '<span class="price-current">निःशुल्क</span>'
+                            : `<span class="price-current">रू ${course.price.toLocaleString('ne-NP')}</span>`;
+
+                        return `
+                            <div class="course-card" onclick="window.location.href='course-detail.html?id=${course.id}'">
+                                <div class="course-image">
+                                    <img src="${course.image}" alt="${course.title}">
+                                </div>
+                                <div class="course-content">
+                                    <div class="course-author">
+                                        <img src="${course.instructorAvatar}" alt="${course.instructor}" class="author-avatar">
+                                        <span class="author-name">${course.instructor}</span>
+                                        <span class="course-badge ${badgeClass}">${course.badge}</span>
+                                    </div>
+                                    <h3 class="course-title">${course.title}</h3>
+                                    <div class="course-footer">
+                                        <div class="course-price">${priceHTML}</div>
+                                        <div class="course-rating">
+                                            <span class="stars">${Utils.generateStars(course.rating)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    document.getElementById('related-courses').innerHTML = relatedHTML;
+                }
+
+                // Add enroll button functionality
+                const enrollBtn = document.getElementById('enroll-btn');
+                if (enrollBtn) {
+                    enrollBtn.addEventListener('click', async () => {
+                        const user = Auth.getCurrentUser();
+
+                        if (!user) {
+                            alert('Please login to enroll in this course');
+                            window.location.href = 'signin.html';
+                            return;
+                        }
+
+                        enrollBtn.disabled = true;
+                        enrollBtn.textContent = 'Enrolling...';
+
+                        const result = await Auth.enrollCourse(courseId);
+
+                        if (result.success) {
+                            alert('Successfully enrolled! Check your profile to start learning.');
+                            enrollBtn.textContent = 'Enrolled ✓';
+                            enrollBtn.style.background = '#28a745';
+                        } else {
+                            alert(result.message || 'Error enrolling in course');
+                            enrollBtn.disabled = false;
+                            enrollBtn.textContent = 'Enroll Now';
+                        }
+                    });
+                }
+
+            } catch (error) {
+                console.error('Error loading course:', error);
+                alert('Error loading course details');
+            }
+        }
+
+        loadCourseDetails();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - EduLe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <!-- Internal styles specific to the profile page -->
+    <style>
+        .profile-hero {
+            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-light) 100%);
+            padding: 120px 0 60px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .profile-info h1 {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .course-progress-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .course-progress-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .course-progress-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .course-progress-img {
+            width: 120px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .course-progress-info {
+            flex: 1;
+        }
+
+        .progress-percentage {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .completed-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#23BD33" />
+                        <path d="M2 17L12 22L22 17" stroke="#23BD33" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#23BD33" stroke-width="2" />
+                    </svg>
+                    <span class="logo-text">EduLe</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="courses.html" class="nav-link">All Course</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions"></div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Profile Header Section -->
+    <section class="profile-hero">
+        <div class="container">
+            <div class="profile-header" id="profile-header">
+                <!-- Profile details (Avatar, Name) loaded here -->
+            </div>
+            <div class="profile-stats" id="profile-stats">
+                <!-- User statistics loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content: Courses and Password Change -->
+    <section style="padding: 60px 0;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-bottom: 40px;">
+                <div>
+                    <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 32px;">My Courses</h2>
+                </div>
+
+                <!-- Password Change Section -->
+                <div
+                    style="background: white; padding: 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); height: fit-content;">
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">Change Password</h3>
+                    <form id="password-form" style="display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <label
+                                style="display: block; font-weight: 500; margin-bottom: 8px; font-size: 14px;">Current
+                                Password</label>
+                            <input type="password" id="current-password" required
+                                style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 14px;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: 500; margin-bottom: 8px; font-size: 14px;">New
+                                Password</label>
+                            <input type="password" id="new-password" required minlength="6"
+                                style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 14px;">
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; font-weight: 500; margin-bottom: 8px; font-size: 14px;">Confirm
+                                New Password</label>
+                            <input type="password" id="confirm-password" required minlength="6"
+                                style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 14px;">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Update Password</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- In Progress Courses List -->
+            <div style="margin-bottom: 40px;">
+                <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px; color: var(--primary-color);">In
+                    Progress</h3>
+                <div id="in-progress-courses"></div>
+            </div>
+
+            <!-- Completed Courses List -->
+            <div>
+                <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 24px; color: var(--primary-color);">
+                    Completed</h3>
+                <div id="completed-courses"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 EduLe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // Check if user is logged in, redirect to login if not
+        const user = Auth.getCurrentUser();
+        if (!user) {
+            alert('Please login to view your profile');
+            window.location.href = 'signin.html';
+        }
+
+        // Load profile data from backend
+        async function loadProfile() {
+            try {
+                const data = await Auth.getProfile(user.id);
+
+                if (!data.success) {
+                    alert('Error loading profile');
+                    return;
+                }
+
+                // Render profile header
+                const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                document.getElementById('profile-header').innerHTML = `
+                    <div class="profile-avatar">${initials}</div>
+                    <div class="profile-info">
+                        <h1>${user.name}</h1>
+                        <p style="color: var(--text-secondary); font-size: 16px;">${user.email}</p>
+                        <p style="color: var(--text-light); font-size: 14px; margin-top: 4px;">Member since ${new Date(data.user.createdAt).toLocaleDateString()}</p>
+                    </div>
+                `;
+
+                // Render stats
+                document.getElementById('profile-stats').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-number">${data.stats.totalEnrolled}</div>
+                        <div class="stat-label">Total Courses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${data.stats.inProgress}</div>
+                        <div class="stat-label">In Progress</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${data.stats.completed}</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                `;
+
+                // Separate courses
+                const inProgress = data.enrolledCourses.filter(c => !c.completed);
+                const completed = data.enrolledCourses.filter(c => c.completed);
+
+                // Render in-progress courses
+                if (inProgress.length > 0) {
+                    document.getElementById('in-progress-courses').innerHTML = inProgress.map(course => `
+                        <div class="course-progress-card">
+                            <div class="course-progress-header">
+                                <img src="${course.image}" alt="${course.title}" class="course-progress-img">
+                                <div class="course-progress-info">
+                                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">${course.title}</h4>
+                                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Instructor: ${course.instructor}</p>
+                                    <div style="display: flex; align-items: center; gap: 16px;">
+                                        <span class="progress-percentage">${course.progress}%</span>
+                                        <div style="flex: 1;">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: ${course.progress}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px; margin-top: 12px;">
+                                <button onclick="window.location.href='course-detail.html?id=${course.id}'" class="btn btn-primary" style="flex: 1;">Continue Learning</button>
+                                <button onclick="updateProgress(${course.id}, ${course.progress + 10})" class="btn btn-outline">Update Progress</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    document.getElementById('in-progress-courses').innerHTML = '<p style="color: var(--text-secondary);">No courses in progress. <a href="courses.html" style="color: var(--primary-color);">Browse courses</a></p>';
+                }
+
+                // Render completed courses
+                if (completed.length > 0) {
+                    document.getElementById('completed-courses').innerHTML = completed.map(course => `
+                        <div class="course-progress-card">
+                            <div class="course-progress-header">
+                                <img src="${course.image}" alt="${course.title}" class="course-progress-img">
+                                <div class="course-progress-info">
+                                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">${course.title}</h4>
+                                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Instructor: ${course.instructor}</p>
+                                    <span class="completed-badge">✓ Completed</span>
+                                </div>
+                            </div>
+                            <button onclick="window.location.href='course-detail.html?id=${course.id}'" class="btn btn-outline" style="margin-top: 12px;">View Course</button>
+                        </div>
+                    `).join('');
+                } else {
+                    document.getElementById('completed-courses').innerHTML = '<p style="color: var(--text-secondary);">No completed courses yet. Keep learning!</p>';
+                }
+
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                alert('Error loading profile data');
+            }
+        }
+
+        // Update progress function
+        async function updateProgress(courseId, newProgress) {
+            const result = await Auth.updateProgress(courseId, newProgress);
+            if (result.success) {
+                alert('Progress updated!');
+                loadProfile(); // Reload profile
+            } else {
+                alert('Error updating progress');
+            }
+        }
+
+        // Password change form handler
+        document.getElementById('password-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Validate passwords match
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+
+            // Validate password length
+            if (newPassword.length < 6) {
+                alert('Password must be at least 6 characters long!');
+                return;
+            }
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Updating...';
+
+            const result = await Auth.changePassword(currentPassword, newPassword);
+
+            if (result.success) {
+                alert('Password updated successfully!');
+                // Clear form
+                document.getElementById('password-form').reset();
+            } else {
+                alert(result.message || 'Error updating password');
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Update Password';
+        });
+
+        loadProfile();
+    </script>
+</body>
+
+</html>

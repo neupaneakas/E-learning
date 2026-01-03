@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - EduLe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#23BD33" />
+                        <path d="M2 17L12 22L22 17" stroke="#23BD33" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#23BD33" stroke-width="2" />
+                    </svg>
+                    <span class="logo-text">EduLe</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="courses.html" class="nav-link">All Course</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="signin.html" class="btn-text">Sign In</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section
+        style="padding: 120px 0 80px; background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-light) 100%);">
+        <div class="container">
+            <h1 style="font-size: 48px; font-weight: 700; text-align: center; margin-bottom: 16px;">Our <span
+                    class="highlight">Blog</span></h1>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 18px;">Latest insights, tips, and
+                updates from the EduLe community</p>
+        </div>
+    </section>
+
+    <section style="padding: 80px 0;">
+        <div class="container">
+            <!-- Blog Posts Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 32px;">
+                <!-- Blog Post 1 -->
+                <article
+                    style="background: white; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); cursor: pointer;"
+                    onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='var(--shadow-lg)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop"
+                        alt="Blog post" style="width: 100%; height: 220px; object-fit: cover;">
+                    <div style="padding: 24px;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+                            <span
+                                style="padding: 4px 12px; background: var(--primary-light); color: var(--primary-color); border-radius: 20px; font-size: 12px; font-weight: 500;">Education</span>
+                            <span style="color: var(--text-light); font-size: 14px;">Jan 3, 2026</span>
+                        </div>
+                        <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">5 Tips for Effective Online
+                            Learning</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">Discover proven
+                            strategies to maximize your online learning experience and achieve your educational goals.
+                        </p>
+                        <a href="#" style="color: var(--primary-color); font-weight: 500;">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 2 -->
+                <article
+                    style="background: white; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); cursor: pointer;"
+                    onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='var(--shadow-lg)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop"
+                        alt="Blog post" style="width: 100%; height: 220px; object-fit: cover;">
+                    <div style="padding: 24px;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+                            <span
+                                style="padding: 4px 12px; background: var(--primary-light); color: var(--primary-color); border-radius: 20px; font-size: 12px; font-weight: 500;">Technology</span>
+                            <span style="color: var(--text-light); font-size: 14px;">Dec 28, 2025</span>
+                        </div>
+                        <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">The Future of E-Learning in
+                            Nepal</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">Explore how
+                            digital education is transforming the learning landscape in Nepal and beyond.</p>
+                        <a href="#" style="color: var(--primary-color); font-weight: 500;">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 3 -->
+                <article
+                    style="background: white; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); cursor: pointer;"
+                    onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='var(--shadow-lg)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=250&fit=crop"
+                        alt="Blog post" style="width: 100%; height: 220px; object-fit: cover;">
+                    <div style="padding: 24px;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+                            <span
+                                style="padding: 4px 12px; background: var(--primary-light); color: var(--primary-color); border-radius: 20px; font-size: 12px; font-weight: 500;">Career</span>
+                            <span style="color: var(--text-light); font-size: 14px;">Dec 20, 2025</span>
+                        </div>
+                        <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">How to Choose the Right
+                            Course for Your Career</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">A comprehensive
+                            guide to selecting courses that align with your career goals and aspirations.</p>
+                        <a href="#" style="color: var(--primary-color); font-weight: 500;">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 EduLe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

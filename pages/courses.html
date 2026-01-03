@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Courses - EduLe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#23BD33" />
+                        <path d="M2 17L12 22L22 17" stroke="#23BD33" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#23BD33" stroke-width="2" />
+                    </svg>
+                    <span class="logo-text">EduLe</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="courses.html" class="nav-link active">All Course</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="signin.html" class="btn-text">Sign In</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section
+        style="padding: 120px 0 80px; background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-light) 100%);">
+        <div class="container">
+            <h1 style="font-size: 48px; font-weight: 700; text-align: center; margin-bottom: 16px;">Explore Our <span
+                    class="highlight">Courses</span></h1>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 18px;">Discover the perfect course to
+                advance your career</p>
+        </div>
+    </section>
+
+    <section class="courses" style="padding: 60px 0;">
+        <div class="container">
+            <!-- Search Bar Section -->
+            <div class="section-header">
+                <h2 class="section-title">All Courses</h2>
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" id="search-input" placeholder="Search your course">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="9" cy="9" r="7" stroke="#666" stroke-width="2" />
+                        <path d="M14 14L18 18" stroke="#666" stroke-width="2" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">All Courses</button>
+                <button class="category-btn" data-category="UI/UX Design">UI/UX Design</button>
+                <button class="category-btn" data-category="Development">Development</button>
+                <button class="category-btn" data-category="Data Science">Data Science</button>
+                <button class="category-btn" data-category="Business">Business</button>
+                <button class="category-btn" data-category="Finance">Finance</button>
+                <button class="category-btn" data-category="Marketing">Marketing</button>
+                <button class="category-btn" data-category="Graphic Design">Graphic Design</button>
+            </div>
+
+            <div class="course-grid" id="course-grid"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 EduLe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Script to handle filtering and searching
+        // Note: This overrides logic in script.js to provide specific behavior for this page
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', async () => {
+                // Update visual state of buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Get filter values
+                const category = btn.dataset.category === 'all' ? null : btn.dataset.category;
+                const search = document.getElementById('search-input').value.trim() || null;
+
+                // Show loading state
+                const courseGrid = document.getElementById('course-grid');
+                courseGrid.innerHTML = '<div class="loading">पाठ्यक्रमहरू लोड हुँदैछ...</div>';
+
+                const data = await API.getCourses(category, search);
+
+                if (data.success && data.courses.length > 0) {
+                    courseGrid.innerHTML = data.courses.map(course => {
+                        const badgeClass = `badge-${course.badge.toLowerCase()}`;
+                        const priceHTML = course.price === 0
+                            ? '<span class="price-current">निःशुल्क</span>'
+                            : `<span class="price-current">रू ${course.price.toLocaleString('ne-NP')}</span>${course.oldPrice ? `<span class="price-old">रू ${course.oldPrice.toLocaleString('ne-NP')}</span>` : ''}`;
+
+                        return `
+                            <div class="course-card" onclick="window.location.href='course-detail.html?id=${course.id}'">
+                                <div class="course-image">
+                                    <img src="${course.image}" alt="${course.title}">
+                                </div>
+                                <div class="course-content">
+                                    <div class="course-author">
+                                        <img src="${course.instructorAvatar}" alt="${course.instructor}" class="author-avatar">
+                                        <span class="author-name">${course.instructor}</span>
+                                        <span class="course-badge ${badgeClass}">${course.badge}</span>
+                                    </div>
+                                    <h3 class="course-title">${course.title}</h3>
+                                    <div class="course-meta">
+                                        <div class="course-stats">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <path d="M8 2L10 6L14 6.5L11 9.5L12 14L8 11.5L4 14L5 9.5L2 6.5L6 6L8 2Z" fill="#FFD700"/>
+                                            </svg>
+                                            <span>${course.rating} (${course.grades} Grades)</span>
+                                        </div>
+                                        <div class="course-lectures">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <rect x="2" y="3" width="12" height="10" rx="1" stroke="#666"/>
+                                                <path d="M7 6L10 8L7 10V6Z" fill="#666"/>
+                                            </svg>
+                                            <span>${course.lectures} Lectures</span>
+                                        </div>
+                                    </div>
+                                    <div class="course-footer">
+                                        <div class="course-price">${priceHTML}</div>
+                                        <div class="course-rating">
+                                            <span class="stars">${Utils.generateStars(course.rating)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    courseGrid.innerHTML = '<div class="no-results">कुनै पाठ्यक्रम फेला परेन।</div>';
+                }
+            });
+        });
+
+        // Search functionality
+        let searchTimeout;
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const activeBtn = document.querySelector('.category-btn.active');
+                activeBtn.click();
+            }, 500);
+        });
+
+        // Load all courses on page load
+        document.querySelector('.category-btn[data-category="all"]').click();
+    </script>
+</body>
+
+</html>
