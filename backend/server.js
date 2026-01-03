@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..')));
 
-// Load course data
+// Helper to read course data from the file
 const loadCourses = () => {
     const dataPath = path.join(__dirname, '../data/courses.json');
     const data = fs.readFileSync(dataPath, 'utf8');
@@ -155,7 +155,8 @@ app.post('/api/become-instructor', (req, res) => {
 // Authentication Endpoints
 // ===================================
 
-// Helper functions for user data
+// Helpers to read/write user data
+// In a big app, we would use a real database here
 const loadUsers = () => {
     const dataPath = path.join(__dirname, '../data/users.json');
     const data = fs.readFileSync(dataPath, 'utf8');
@@ -197,7 +198,7 @@ app.post('/api/auth/register', (req, res) => {
         if (existingUser) {
             return res.status(400).json({
                 success: false,
-                message: 'User with this email already exists'
+                message: 'This email is already taken'
             });
         }
 
