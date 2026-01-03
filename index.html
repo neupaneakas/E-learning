@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduLe - Start Your Learning Journey</title>
+    <meta name="description"
+        content="Learn from anywhere and build your bright career with EduLe's comprehensive online courses">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#23BD33" />
+                        <path d="M2 17L12 22L22 17" stroke="#23BD33" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#23BD33" stroke-width="2" />
+                    </svg>
+                    <span class="logo-text">EduLe</span>
+                </div>
+
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="pages/courses.html" class="nav-link">All Course</a></li>
+                    <li><a href="pages/about.html" class="nav-link">About</a></li>
+                    <li><a href="pages/blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="pages/contact.html" class="nav-link">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="pages/signin.html" class="btn-text">Sign In</a>
+                    <a href="pages/signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="3" fill="#FFD700" />
+                            <circle cx="12" cy="15" r="2" fill="#FFD700" />
+                            <circle cx="28" cy="15" r="2" fill="#FFD700" />
+                            <circle cx="15" cy="25" r="2" fill="#FFD700" />
+                            <circle cx="25" cy="25" r="2" fill="#FFD700" />
+                        </svg>
+                    </div>
+                    <p class="hero-subtitle">Start your favourite course</p>
+                    <h1 class="hero-title">Now learning from anywhere, and build your <span class="highlight">bright
+                            career.</span></h1>
+                    <p class="hero-description">It has survived not only five centuries but also the leap into
+                        electronic typesetting.</p>
+                    <button class="btn btn-primary btn-large">Start A Course</button>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=700&fit=crop"
+                            alt="Happy student with laptop" class="student-img">
+                        <div class="floating-badge">
+                            <div class="badge-content">
+                                <span class="badge-number">1,235</span>
+                                <span class="badge-label">Students</span>
+                            </div>
+                        </div>
+                        <div class="decorative-elements">
+                            <div class="element element-1"></div>
+                            <div class="element element-2"></div>
+                            <div class="element element-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">All <span class="highlight">Courses</span> of Edule</h2>
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" placeholder="Search your course">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="9" cy="9" r="7" stroke="#666" stroke-width="2" />
+                        <path d="M14 14L18 18" stroke="#666" stroke-width="2" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="category-btn active">UI/UX Design</button>
+                <button class="category-btn">Development</button>
+                <button class="category-btn">Data Science</button>
+                <button class="category-btn">Business</button>
+                <button class="category-btn">Financial</button>
+            </div>
+
+            <!-- Course Grid -->
+            <div class="course-grid">
+                <!-- Course Card 1 -->
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop"
+                            alt="Data Science Course">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-author">
+                            <img src="https://i.pravatar.cc/40?img=12" alt="Jason Williams" class="author-avatar">
+                            <span class="author-name">Jason Williams</span>
+                            <span class="course-badge badge-science">Science</span>
+                        </div>
+                        <h3 class="course-title">Data Science and Machine Learning with Python - Hands On!</h3>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 2L10 6L14 6.5L11 9.5L12 14L8 11.5L4 14L5 9.5L2 6.5L6 6L8 2Z"
+                                        fill="#FFD700" />
+                                </svg>
+                                <span>5.0 (2 Grades)</span>
+                            </div>
+                            <div class="course-lectures">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <rect x="2" y="3" width="12" height="10" rx="1" stroke="#666" />
+                                    <path d="M7 6L10 8L7 10V6Z" fill="#666" />
+                                </svg>
+                                <span>23 Lectures</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">
+                                <span class="price-current">$385.00</span>
+                                <span class="price-old">$440.00</span>
+                            </div>
+                            <div class="course-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 2 -->
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=250&fit=crop"
+                            alt="Creative Design Course">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-author">
+                            <img src="https://i.pravatar.cc/40?img=5" alt="Pamela Foster" class="author-avatar">
+                            <span class="author-name">Pamela Foster</span>
+                            <span class="course-badge badge-science">Science</span>
+                        </div>
+                        <h3 class="course-title">Create Amazing Color Schemes for Your UX Design Projects</h3>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 2L10 6L14 6.5L11 9.5L12 14L8 11.5L4 14L5 9.5L2 6.5L6 6L8 2Z"
+                                        fill="#FFD700" />
+                                </svg>
+                                <span>5.0 (2 Grades)</span>
+                            </div>
+                            <div class="course-lectures">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <rect x="2" y="3" width="12" height="10" rx="1" stroke="#666" />
+                                    <path d="M7 6L10 8L7 10V6Z" fill="#666" />
+                                </svg>
+                                <span>23 Lectures</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">
+                                <span class="price-current">$450.00</span>
+                            </div>
+                            <div class="course-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=250&fit=crop"
+                            alt="Leadership Course">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-author">
+                            <img src="https://i.pravatar.cc/40?img=8" alt="Rose Simmons" class="author-avatar">
+                            <span class="author-name">Rose Simmons</span>
+                            <span class="course-badge badge-business">Business</span>
+                        </div>
+                        <h3 class="course-title">Culture & Leadership: Strategies for a Successful Business</h3>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 2L10 6L14 6.5L11 9.5L12 14L8 11.5L4 14L5 9.5L2 6.5L6 6L8 2Z"
+                                        fill="#FFD700" />
+                                </svg>
+                                <span>5.0 (2 Grades)</span>
+                            </div>
+                            <div class="course-lectures">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <rect x="2" y="3" width="12" height="10" rx="1" stroke="#666" />
+                                    <path d="M7 6L10 8L7 10V6Z" fill="#666" />
+                                </svg>
+                                <span>20 Lectures</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">
+                                <span class="price-current">$295.00</span>
+                                <span class="price-old">$340.00</span>
+                            </div>
+                            <div class="course-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 4 -->
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1554224311-beee460ae6ba?w=400&h=250&fit=crop"
+                            alt="Finance Course">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-author">
+                            <img src="https://i.pravatar.cc/40?img=13" alt="Jason Williams" class="author-avatar">
+                            <span class="author-name">Jason Williams</span>
+                            <span class="course-badge badge-finance">Finance</span>
+                        </div>
+                        <h3 class="course-title">Fitness Series: Learn to Budget and Calculate your Net Worth</h3>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 2L10 6L14 6.5L11 9.5L12 14L8 11.5L4 14L5 9.5L2 6.5L6 6L8 2Z"
+                                        fill="#FFD700" />
+                                </svg>
+                                <span>5.0 (2 Grades)</span>
+                            </div>
+                            <div class="course-lectures">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <rect x="2" y="3" width="12" height="10" rx="1" stroke="#666" />
+                                    <path d="M7 6L10 8L7 10V6Z" fill="#666" />
+                                </svg>
+                                <span>23 Lectures</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">
+                                <span class="price-current">Free</span>
+                            </div>
+                            <div class="course-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 5 -->
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=250&fit=crop"
+                            alt="Marketing Course">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-author">
+                            <img src="https://i.pravatar.cc/40?img=14" alt="Jason Williams" class="author-avatar">
+                            <span class="author-name">Jason Williams</span>
+                            <span class="course-badge badge-marketing">Marketing</span>
+                        </div>
+                        <h3 class="course-title">Build Brand Into Marketing: Tackling the New Marketing Landscape</h3>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 2L10 6L14 6.5L11 9.5L12 14L8 11.5L4 14L5 9.5L2 6.5L6 6L8 2Z"
+                                        fill="#FFD700" />
+                                </svg>
+                                <span>5.0 (2 Grades)</span>
+                            </div>
+                            <div class="course-lectures">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <rect x="2" y="3" width="12" height="10" rx="1" stroke="#666" />
+                                    <path d="M7 6L10 8L7 10V6Z" fill="#666" />
+                                </svg>
+                                <span>23 Lectures</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">
+                                <span class="price-current">$136.00</span>
+                            </div>
+                            <div class="course-rating">
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 6 -->
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=400&h=250&fit=crop"
+                            alt="Design Course">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-author">
+                            <img src="https://i.pravatar.cc/40?img=9" alt="Jason Williams" class="author-avatar">
+                            <span class="author-name">Jason Williams</span>
+                            <span class="course-badge badge-design">Design</span>
+                        </div>
+                        <h3 class="course-title">Graphic Design: Illustrating Badges and Icons with Geometric Shapes
+                        </h3>
+                        <div class="course-meta">
+                            <div class="course-stats">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 2L10 6L14 6.5L11 9.5L12 14L8 11.5L4 14L5 9.5L2 6.5L6 6L8 2Z"
+                                        fill="#FFD700" />
+                                </svg>
+                                <span>4.9 (2 Grades)</span>
+                            </div>
+                            <div class="course-lectures">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <rect x="2" y="3" width="12" height="10" rx="1" stroke="#666" />
+                                    <path d="M7 6L10 8L7 10V6Z" fill="#666" />
+                                </svg>
+                                <span>23 Lectures</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-price">
+                                <span class="price-current">$237.00</span>
+                            </div>
+                            <div class="course-rating">
+                                <span class="stars">★★★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="load-more">
+                <button class="btn btn-outline">Other Course</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructor CTA -->
+    <section class="instructor-cta">
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-text">
+                    <h2 class="cta-title">Become A Instructor</h2>
+                    <p class="cta-subtitle">You can join with Edule as a <span class="highlight">instructor?</span></p>
+                </div>
+                <div class="cta-decorations">
+                    <div class="decoration-element decoration-1"></div>
+                    <div class="decoration-element decoration-2"></div>
+                </div>
+                <a href="pages/become-instructor.html" class="btn btn-primary btn-large">Drop Information</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 EduLe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
