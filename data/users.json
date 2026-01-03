@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Test User",
+      "email": "test@test.com",
+      "password": "test123",
+      "createdAt": "2026-01-03T05:09:05.435Z"
+    },
+    {
+      "id": 2,
+      "name": "Aakash Neupane",
+      "email": "nyupaneaakash@gmail.com",
+      "password": "Akki123@",
+      "createdAt": "2026-01-03T05:10:56.694Z"
+    },
+    {
+      "id": 3,
+      "name": "Test User",
+      "email": "test_user@example.com",
+      "password": "password123",
+      "createdAt": "2026-01-03T05:57:35.131Z"
+    }
+  ]
+}
