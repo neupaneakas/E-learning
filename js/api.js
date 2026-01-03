@@ -1,5 +1,5 @@
 // This is the address where our backend server lives
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = '/api';
 
 // These are helpers to talk to the backend
 const API = {

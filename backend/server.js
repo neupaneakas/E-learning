@@ -708,27 +708,32 @@ app.get('/api/blogs/:id', (req, res) => {
     }
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`🎓 EduLe Backend Server running on http://localhost:${PORT}`);
-    console.log(`📚 API endpoints available:`);
-    console.log(`   - GET  /api/blogs`);
-    console.log(`   - GET  /api/blogs/:id`);
-    console.log(`   - GET  /api/courses`);
-    console.log(`   - GET  /api/courses/:id`);
-    console.log(`   - GET  /api/categories`);
-    console.log(`   - POST /api/contact`);
-    console.log(`   - POST /api/become-instructor`);
-    console.log(`   - POST /api/auth/register`);
-    console.log(`   - POST /api/auth/login`);
-    console.log(`   - GET  /api/auth/profile/:userId`);
-    console.log(`   - PUT  /api/auth/profile/:userId`);
-    console.log(`   - PUT  /api/auth/change-password`);
-    console.log(`   - POST /api/enroll/:courseId`);
-    console.log(`   - PUT  /api/progress/:courseId`);
-    console.log(`   - GET  /api/admin/stats`);
-    console.log(`   - GET  /api/admin/users`);
-    console.log(`   - POST /api/admin/courses`);
-    console.log(`   - DELETE /api/admin/courses/:id`);
-});
+// Export for Vercel
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`🎓 EduLe Backend Server running on http://localhost:${PORT}`);
+        console.log(`📚 API endpoints available:`);
+        console.log(`   - GET  /api/blogs`);
+        console.log(`   - GET  /api/blogs/:id`);
+        console.log(`   - GET  /api/courses`);
+        console.log(`   - GET  /api/courses/:id`);
+        console.log(`   - GET  /api/categories`);
+        console.log(`   - POST /api/contact`);
+        console.log(`   - POST /api/become-instructor`);
+        console.log(`   - POST /api/auth/register`);
+        console.log(`   - POST /api/auth/login`);
+        console.log(`   - GET  /api/auth/profile/:userId`);
+        console.log(`   - PUT  /api/auth/profile/:userId`);
+        console.log(`   - PUT  /api/auth/change-password`);
+        console.log(`   - POST /api/enroll/:courseId`);
+        console.log(`   - PUT  /api/progress/:courseId`);
+        console.log(`   - GET  /api/admin/stats`);
+        console.log(`   - GET  /api/admin/users`);
+        console.log(`   - POST /api/admin/courses`);
+        console.log(`   - DELETE /api/admin/courses/:id`);
+        console.log(`   - PUT  /api/admin/users/:userId/role`);
+    });
+}
+
+module.exports = app;
 
