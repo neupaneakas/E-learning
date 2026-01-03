@@ -33,7 +33,9 @@ const Auth = {
     logout() {
         localStorage.removeItem('eduLeUser');
         sessionStorage.removeItem('eduLeUser');
-        window.location.href = '/index.html';
+        // Redirect to index.html regardless of which page we are on
+        const isSubPage = window.location.pathname.includes('/pages/');
+        window.location.href = isSubPage ? '../index.html' : 'index.html';
     },
 
     // Check if user is logged in
@@ -81,13 +83,20 @@ const Auth = {
 
             if (data.success) {
                 this.setCurrentUser(data.user, rememberMe);
+
+                // Handle Remember Me (Email persistence)
+                if (rememberMe) {
+                    localStorage.setItem('rememberedEmail', email);
+                } else {
+                    localStorage.removeItem('rememberedEmail');
+                }
+
                 return { success: true, user: data.user };
-            } else {
-                return { success: false, message: data.message };
             }
+            return data;
         } catch (error) {
             console.error('Login error:', error);
-            return { success: false, message: 'Error during login' };
+            return { success: false, message: 'An error occurred during login' };
         }
     },
 
@@ -185,24 +194,80 @@ const Auth = {
     updateNavigation() {
         const user = this.getCurrentUser();
         const navActions = document.querySelector('.nav-actions');
+        const navMenu = document.querySelector('.nav-menu');
 
         if (user && navActions) {
-            // Change the html to show user info
+            const isSubPage = window.location.pathname.includes('/pages/');
+            const profilePath = isSubPage ? 'profile.html' : 'pages/profile.html';
+            const dashboardPath = isSubPage ? 'admin.html' : 'pages/admin.html';
+
+            // Add Admin link to main menu if not present
+            if (user.isAdmin && navMenu) {
+                const existingAdminLink = navMenu.querySelector(`a[href$="admin.html"]`);
+                if (!existingAdminLink) {
+                    const li = document.createElement('li');
+                    li.id = 'dynamic-admin-link';
+                    li.innerHTML = `<a href="${dashboardPath}" class="nav-link" style="color: var(--primary-color); font-weight: 700;">Admin Dashboard</a>`;
+                    navMenu.appendChild(li);
+                }
+            } else if (navMenu) {
+                const dynamicAdmin = document.getElementById('dynamic-admin-link');
+                if (dynamicAdmin) dynamicAdmin.remove();
+            }
+
+            // Use profile image if available, otherwise use default SVG
+            const avatarHtml = user.profileImage
+                ? `<img src="${user.profileImage}" alt="${user.name}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">`
+                : `<div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary-light); color: var(--primary-color); display: flex; align-items: center; justify-content: center;">
+                        <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                            <path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                   </div>`;
+
+            // Change the html to show user info (without admin link here)
             navActions.innerHTML = `
-                <a href="pages/profile.html" class="btn-text">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="vertical-align: middle; margin-right: 4px;">
-                        <circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
-                        <path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                    ${user.name}
-                </a>
-                <button onclick="Auth.logout()" class="btn btn-primary">Logout</button>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <a href="${profilePath}" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; font-weight: 500;">
+                        ${avatarHtml}
+                        <span style="white-space: nowrap;">${user.name}</span>
+                    </a>
+                    <button onclick="Auth.logout()" class="btn btn-primary btn-sm">Logout</button>
+                </div>
             `;
+        }
+    },
+
+    // Update User Profile
+    async updateProfile(profileData) {
+        const user = this.getCurrentUser();
+        if (!user) return { success: false, message: 'Not logged in' };
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/profile/${user.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(profileData)
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                // Update local storage user data
+                const updatedUser = { ...user, ...data.user };
+                this.setCurrentUser(updatedUser, localStorage.getItem('eduLeUser') !== null);
+                return { success: true, user: updatedUser };
+            }
+            return data;
+        } catch (error) {
+            console.error('Profile update error:', error);
+            return { success: false, message: 'Error updating profile' };
         }
     }
 };
 
 // Update navigation on page load
-if (document.querySelector('.nav-actions')) {
+if (typeof document !== 'undefined' && document.querySelector('.nav-actions')) {
     Auth.updateNavigation();
 }

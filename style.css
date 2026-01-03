@@ -5,9 +5,9 @@
    If we change a color here, it changes across the whole site!
 */
 :root {
-    --primary-color: #23BD33;
+    --primary-color: #5026fb;
     /* Our main green brand color */
-    --primary-dark: #1da329;
+    --primary-dark: #5026ff;
     /* Darker green for hover effects */
     --primary-light: #e8f8ea;
     /* Light green background */

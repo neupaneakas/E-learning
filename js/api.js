@@ -86,6 +86,92 @@ const API = {
             console.error('Error submitting instructor application:', error);
             return { success: false, message: 'Error submitting application' };
         }
+    },
+
+    // Admin Methods
+    async getAdminStats() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/admin/stats`);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching admin stats:', error);
+            return { success: false };
+        }
+    },
+
+    async getAdminUsers() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/admin/users`);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching admin users:', error);
+            return { success: false, users: [] };
+        }
+    },
+
+    async updateUserRole(userId, isAdmin) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/admin/users/${userId}/role`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ isAdmin })
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating user role:', error);
+            return { success: false, message: 'Error updating user role' };
+        }
+    },
+
+    async addCourse(courseData) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/admin/courses`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(courseData)
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error adding course:', error);
+            return { success: false };
+        }
+    },
+
+    async deleteCourse(id) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/admin/courses/${id}`, {
+                method: 'DELETE'
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error deleting course:', error);
+            return { success: false };
+        }
+    },
+
+    // Blog Methods
+    async getBlogs() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/blogs`);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching blogs:', error);
+            return { success: false, blogs: [] };
+        }
+    },
+
+    async getBlog(id) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/blogs/${id}`);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching blog:', error);
+            return { success: false };
+        }
     }
 };
 

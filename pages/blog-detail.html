@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Detail - A4K Mentors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .blog-category {
+            padding: 4px 12px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .blog-title {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .blog-image {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .blog-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .blog-text b {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#5026ff" />
+                        <path d="M2 17L12 22L22 17" stroke="#5026ff" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#5026ff" stroke-width="2" />
+                    </svg>
+                    <span class="logo-text">A<sup>4</sup>K Mentors</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="courses.html" class="nav-link">All Course</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <!-- User info will be injected by auth.js -->
+                    <a href="signin.html" class="btn-text">Sign In</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-content">
+        <div id="blog-detail-container">
+            <div style="text-align: center; padding: 100px;">Loading blog post...</div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 A<sup>4</sup>K Mentors. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        async function loadBlogDetail() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const blogId = urlParams.get('id');
+
+            if (!blogId) {
+                window.location.href = 'blog.html';
+                return;
+            }
+
+            const result = await API.getBlog(blogId);
+            const container = document.getElementById('blog-detail-container');
+
+            if (result.success) {
+                const blog = result.blog;
+                document.title = `${blog.title} - A4K Mentors`;
+
+                container.innerHTML = `
+                    <div class="blog-header">
+                        <div class="blog-meta">
+                            <span class="blog-category">${blog.category}</span>
+                            <span>•</span>
+                            <span>${blog.date}</span>
+                        </div>
+                        <h1 class="blog-title">${blog.title}</h1>
+                    </div>
+                    <img src="${blog.image}" alt="${blog.title}" class="blog-image">
+                    <div class="blog-text">
+                        ${blog.content}
+                    </div>
+                    <div style="margin-top: 60px; text-align: center;">
+                        <a href="blog.html" class="btn btn-outline">← Back to Blogs</a>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 100px;">
+                        <h2>Blog post not found</h2>
+                        <p style="margin-bottom: 24px;">Sorry, the post you are looking for doesn't exist.</p>
+                        <a href="blog.html" class="btn btn-primary">Back to Blogs</a>
+                    </div>
+                `;
+            }
+        }
+
+        loadBlogDetail();
+    </script>
+</body>
+
+</html>

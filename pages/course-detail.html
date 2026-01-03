@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Details - EduLe</title>
+    <title>Course Details - A<sup>4</sup>K Mentors</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -177,11 +177,11 @@
             <nav class="navbar">
                 <div class="logo">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#23BD33" />
-                        <path d="M2 17L12 22L22 17" stroke="#23BD33" stroke-width="2" />
-                        <path d="M2 12L12 17L22 12" stroke="#23BD33" stroke-width="2" />
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#5026ff" />
+                        <path d="M2 17L12 22L22 17" stroke="#5026ff" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#5026ff" stroke-width="2" />
                     </svg>
-                    <span class="logo-text">EduLe</span>
+                    <span class="logo-text">A<sup>4</sup>K Mentors</span>
                 </div>
 
                 <ul class="nav-menu">
@@ -209,7 +209,8 @@
     <!-- Course Detail Hero -->
     <section class="course-detail-hero">
         <div class="container">
-            <div id="course-hero"></div>
+            <div id="course-hero">
+            </div>
         </div>
     </section>
 
@@ -250,7 +251,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2026 EduLe. All rights reserved.</p>
+                <p>&copy; 2026 A<sup>4</sup>K Mentors. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -316,7 +317,7 @@
 
                 // Sidebar
                 const priceHTML = course.price === 0
-                    ? '<div class="course-price-large">निःशुल्क</div>'
+                    ? '<div class="course-price-large">Free</div>'
                     : `<div class="course-price-large">रू ${course.price.toLocaleString('ne-NP')}${course.oldPrice ? `<span class="course-old-price">रू ${course.oldPrice.toLocaleString('ne-NP')}</span>` : ''}</div>`;
 
                 document.getElementById('course-sidebar').innerHTML = `
@@ -416,7 +417,7 @@
                     const relatedHTML = data.relatedCourses.map(course => {
                         const badgeClass = `badge-${course.badge.toLowerCase()}`;
                         const priceHTML = course.price === 0
-                            ? '<span class="price-current">निःशुल्क</span>'
+                            ? '<span class="price-current">Free</span>'
                             : `<span class="price-current">रू ${course.price.toLocaleString('ne-NP')}</span>`;
 
                         return `

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - EduLe</title>
+    <title>My Profile - A<sup>4</sup>K Mentors</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -137,11 +137,11 @@
             <nav class="navbar">
                 <div class="logo">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#23BD33" />
-                        <path d="M2 17L12 22L22 17" stroke="#23BD33" stroke-width="2" />
-                        <path d="M2 12L12 17L22 12" stroke="#23BD33" stroke-width="2" />
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#5026ff" />
+                        <path d="M2 17L12 22L22 17" stroke="#5026ff" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#5026ff" stroke-width="2" />
                     </svg>
-                    <span class="logo-text">EduLe</span>
+                    <span class="logo-text">A<sup>4</sup>K Mentors</span>
                 </div>
                 <ul class="nav-menu">
                     <li><a href="../index.html" class="nav-link">Home</a></li>
@@ -150,7 +150,9 @@
                     <li><a href="blog.html" class="nav-link">Blog</a></li>
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                 </ul>
-                <div class="nav-actions"></div>
+                <div class="nav-actions">
+
+                </div>
             </nav>
         </div>
     </header>
@@ -175,9 +177,43 @@
                     <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 32px;">My Courses</h2>
                 </div>
 
-                <!-- Password Change Section -->
+                <!-- General Settings Section -->
                 <div
                     style="background: white; padding: 24px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); height: fit-content;">
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">General Settings</h3>
+                    <form id="profile-settings-form" style="display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <label style="display: block; font-weight: 500; margin-bottom: 8px; font-size: 14px;">Full
+                                Name</label>
+                            <input type="text" id="profile-name" required
+                                style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 14px;">
+                        </div>
+                        <div
+                            style="display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 8px;">
+                            <div id="settings-avatar-preview"
+                                style="width: 80px; height: 80px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid var(--primary-color);">
+                                <svg width="40" height="40" viewBox="0 0 20 20" fill="#ccc">
+                                    <circle cx="10" cy="7" r="4" />
+                                    <path d="M4 18C4 14.6863 6.68629 12 10 12C13.3137 12 16 14.6863 16 18" />
+                                </svg>
+                            </div>
+                            <label for="image-upload" class="btn btn-outline btn-sm" style="cursor: pointer;">
+                                Choose Photo
+                            </label>
+                            <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: 500; margin-bottom: 8px; font-size: 14px;">Or
+                                Image URL</label>
+                            <input type="url" id="profile-image-url"
+                                style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 14px;"
+                                placeholder="https://example.com/image.jpg">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Save Changes</button>
+                    </form>
+
+                    <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--border-color);">
+
                     <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">Change Password</h3>
                     <form id="password-form" style="display: flex; flex-direction: column; gap: 16px;">
                         <div>
@@ -224,7 +260,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2026 EduLe. All rights reserved.</p>
+                <p>&copy; 2026 A<sup>4</sup>K Mentors. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -249,16 +285,30 @@
                     return;
                 }
 
-                // Render profile header
+                // Populate profile settings
+                document.getElementById('profile-name').value = data.user.name;
+                document.getElementById('profile-image-url').value = data.user.profileImage || '';
+
+                // Render profile header (updated to use profileImage if available)
                 const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                const avatarHtml = data.user.profileImage
+                    ? `<img src="${data.user.profileImage}" alt="${user.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`
+                    : initials;
+
                 document.getElementById('profile-header').innerHTML = `
-                    <div class="profile-avatar">${initials}</div>
+                    <div class="profile-avatar">${avatarHtml}</div>
                     <div class="profile-info">
                         <h1>${user.name}</h1>
                         <p style="color: var(--text-secondary); font-size: 16px;">${user.email}</p>
                         <p style="color: var(--text-light); font-size: 14px; margin-top: 4px;">Member since ${new Date(data.user.createdAt).toLocaleDateString()}</p>
                     </div>
                 `;
+
+                // Update settings preview
+                const settingsPreview = document.getElementById('settings-avatar-preview');
+                if (data.user.profileImage) {
+                    settingsPreview.innerHTML = `<img src="${data.user.profileImage}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                }
 
                 // Render stats
                 document.getElementById('profile-stats').innerHTML = `
@@ -333,6 +383,50 @@
                 alert('Error loading profile data');
             }
         }
+
+        // Handle Image Upload
+        document.getElementById('image-upload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Check file size (limit to 1MB for Base64 storage)
+            if (file.size > 1024 * 1024) {
+                alert('Image is too large. Please choose an image smaller than 1MB.');
+                this.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const base64String = event.target.result;
+                document.getElementById('profile-image-url').value = base64String;
+                document.getElementById('settings-avatar-preview').innerHTML = `<img src="${base64String}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Handle Profile Settings Form
+        document.getElementById('profile-settings-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('profile-name').value;
+            const profileImage = document.getElementById('profile-image-url').value;
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+
+            const result = await Auth.updateProfile({ name, profileImage });
+            if (result.success) {
+                alert('Profile updated successfully!');
+                Auth.updateNavigation(); // Refresh header
+                loadProfile(); // Refresh page content
+            } else {
+                alert(result.message || 'Error updating profile');
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Save Changes';
+        });
 
         // Update progress function
         async function updateProgress(courseId, newProgress) {

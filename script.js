@@ -206,7 +206,7 @@ let currentSearch = null;
 function renderCourseCard(course) {
     const badgeClass = `badge-${course.badge.toLowerCase()}`;
     const priceHTML = course.price === 0
-        ? '<span class="price-current">निःशुल्क</span>'
+        ? '<span class="price-current">Free</span>'
         : `
             <span class="price-current">रू ${course.price.toLocaleString('ne-NP')}</span>
             ${course.oldPrice ? `<span class="price-old">रू ${course.oldPrice.toLocaleString('ne-NP')}</span>` : ''}
@@ -260,7 +260,7 @@ async function loadCourses(category = null, search = null) {
     if (!courseGrid) return; // Stop if there is no grid on this page
 
     // Show "Loading..." text
-    courseGrid.innerHTML = '<div class="loading">पाठ्यक्रमहरू लोड हुँदैछ...</div>';
+    courseGrid.innerHTML = '<div class="loading">Courses loading...</div>';
 
     try {
         const data = await API.getCourses(category, search);
@@ -283,11 +283,11 @@ async function loadCourses(category = null, search = null) {
                 });
             });
         } else {
-            courseGrid.innerHTML = '<div class="no-results">कुनै पाठ्यक्रम फेला परेन।</div>';
+            courseGrid.innerHTML = '<div class="no-results">No courses found</div>';
         }
     } catch (error) {
         console.error('Error loading courses:', error);
-        courseGrid.innerHTML = '<div class="error-message">पाठ्यक्रमहरू लोड गर्न समस्या भयो। कृपया पुन: प्रयास गर्नुहोस्।</div>';
+        courseGrid.innerHTML = '<div class="error-message">Error loading courses. Please try again.</div>';
     }
 }
 

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - A4K Mentors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: #1a1a1a;
+            color: white;
+            padding: 24px;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #ccc;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .admin-main {
+            background: #f8f9fa;
+            padding: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .admin-card {
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-val {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .stat-tit {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: #f3f3f3;
+            font-weight: 600;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-admin {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .action-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 4px;
+            color: var(--text-light);
+        }
+
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .action-btn.delete:hover {
+            color: #ef4444;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#5026ff" />
+                    <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" />
+                    <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" />
+                </svg>
+                <span style="font-weight: 700; font-size: 18px;">Admin Panel</span>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" data-target="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#" class="menu-item" data-target="courses">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                    Courses
+                </a>
+                <a href="#" class="menu-item" data-target="users">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    Users
+                </a>
+                <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0;">
+                <a href="../index.html" class="menu-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Back to Website
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                <h1 id="panel-title" style="font-size: 28px; font-weight: 700;">Dashboard Overview</h1>
+                <div id="admin-user-info" style="display: flex; align-items: center; gap: 12px;">
+                    <!-- User info will be injected here -->
+                </div>
+            </header>
+
+            <!-- Dashboard Overview Panel -->
+            <div id="dashboard" class="tab-panel active">
+                <div class="stats-grid">
+                    <div class="admin-card">
+                        <div class="stat-val" id="total-users">-</div>
+                        <div class="stat-tit">Total Students</div>
+                    </div>
+                    <div class="admin-card">
+                        <div class="stat-val" id="total-courses">-</div>
+                        <div class="stat-tit">Active Courses</div>
+                    </div>
+                    <div class="admin-card">
+                        <div class="stat-val" id="total-enrollments">-</div>
+                        <div class="stat-tit">Total Enrollments</div>
+                    </div>
+                    <div class="admin-card">
+                        <div class="stat-val" id="total-instructors">-</div>
+                        <div class="stat-tit">Instructors</div>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3 style="margin-bottom: 20px;">Quick Actions</h3>
+                    <div style="display: flex; gap: 16px;">
+                        <button class="btn btn-primary" onclick="showAddCourseModal()">+ Add New Course</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Courses Panel -->
+            <div id="courses" class="tab-panel">
+                <div class="admin-card">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3>All Courses</h3>
+                        <button class="btn btn-primary btn-sm" onclick="showAddCourseModal()">+ Add New</button>
+                    </div>
+                    <div id="courses-table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Instructor</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="courses-list-body">
+                                <tr>
+                                    <td colspan="5">Loading courses...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Panel -->
+            <div id="users" class="tab-panel">
+                <div class="admin-card">
+                    <h3>Registered Users</h3>
+                    <div id="users-table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Joined Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-list-body">
+                                <tr>
+                                    <td colspan="5">Loading users...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Course Modal -->
+    <div id="course-modal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 24px;">Add New Course</h2>
+            <form id="add-course-form">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 8px;">Course Title</label>
+                    <input type="text" id="course-title" class="form-input" style="width: 100%" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 8px;">Instructor Name</label>
+                    <input type="text" id="course-instructor" class="form-input" style="width: 100%" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 8px;">Category</label>
+                    <select id="course-category" class="form-input" style="width: 100%" required>
+                        <option value="Design">Design</option>
+                        <option value="Development">Development</option>
+                        <option value="Business">Business</option>
+                        <option value="Marketing">Marketing</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 8px;">Price (in NRS)</label>
+                    <input type="number" id="course-price" class="form-input" style="width: 100%" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 8px;">Image URL</label>
+                    <input type="url" id="course-image" class="form-input" style="width: 100%" placeholder="https://..."
+                        required>
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 24px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Course</button>
+                    <button type="button" class="btn btn-outline" style="flex: 1;"
+                        onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // Safety check for admin access
+        const currentUser = Auth.getCurrentUser();
+        if (!currentUser || !currentUser.isAdmin) {
+            alert('Access denied. Admin privileges required.');
+            window.location.href = '../index.html';
+        }
+
+        // Sidebar Navigation
+        document.querySelectorAll('.menu-item[data-target]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = item.dataset.target;
+
+                // Update UI links
+                document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('active'));
+                item.classList.add('active');
+
+                // Update panels
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+
+                // Update title
+                const titles = {
+                    dashboard: 'Dashboard Overview',
+                    courses: 'Course Management',
+                    users: 'User Management'
+                };
+                document.getElementById('panel-title').textContent = titles[target];
+
+                // Refresh data
+                if (target === 'dashboard') loadStats();
+                if (target === 'courses') loadCoursesList();
+                if (target === 'users') loadUsersList();
+            });
+        });
+
+        // Load stats
+        async function loadStats() {
+            const result = await API.getAdminStats();
+            if (result.success) {
+                document.getElementById('total-users').textContent = result.stats.totalUsers;
+                document.getElementById('total-courses').textContent = result.stats.totalCourses;
+                document.getElementById('total-enrollments').textContent = result.stats.totalEnrollments;
+                document.getElementById('total-instructors').textContent = result.stats.totalInstructors;
+            }
+        }
+
+        // Load users
+        async function loadUsersList() {
+            const result = await API.getAdminUsers();
+            const tbody = document.getElementById('users-list-body');
+            const currentUser = Auth.getCurrentUser();
+
+            if (result.success) {
+                tbody.innerHTML = result.users.map(u => {
+                    const isSelf = currentUser && currentUser.id === u.id;
+                    const actionBtn = isSelf
+                        ? '<span style="font-size: 12px; color: var(--text-light);">You</span>'
+                        : `<button class="action-btn" onclick="toggleAdminStatus(${u.id}, ${u.isAdmin})" title="${u.isAdmin ? 'Demote to Student' : 'Promote to Admin'}">
+                            ${u.isAdmin
+                            ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>'
+                            : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>'}
+                           </button>`;
+
+                    return `
+                        <tr>
+                            <td>${u.name}</td>
+                            <td>${u.email}</td>
+                            <td><span class="badge ${u.isAdmin ? 'badge-admin' : ''}">${u.isAdmin ? 'Admin' : 'Student'}</span></td>
+                            <td>${new Date(u.createdAt).toLocaleDateString()}</td>
+                            <td>${actionBtn}</td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+        }
+
+        // Toggle Admin Status
+        async function toggleAdminStatus(userId, currentStatus) {
+            const newStatus = !currentStatus;
+            const action = newStatus ? 'promote to Admin' : 'demote to Student';
+
+            if (confirm(`Are you sure you want to ${action} this user?`)) {
+                const result = await API.updateUserRole(userId, newStatus);
+                if (result.success) {
+                    alert(result.message);
+                    loadUsersList();
+                } else {
+                    alert('Error updating user role');
+                }
+            }
+        }
+
+        // Load courses
+        async function loadCoursesList() {
+            const result = await API.getCourses();
+            const tbody = document.getElementById('courses-list-body');
+            if (result.success) {
+                tbody.innerHTML = result.courses.map(c => `
+                    <tr>
+                        <td style="font-weight: 500;">${c.title}</td>
+                        <td>${c.instructor}</td>
+                        <td>${c.category}</td>
+                        <td>रू ${c.price.toLocaleString()}</td>
+                        <td>
+                            <button class="action-btn delete" onclick="deleteCourse(${c.id})" title="Delete"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Modal Logic
+        function showAddCourseModal() {
+            document.getElementById('course-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('course-modal').style.display = 'none';
+        }
+
+        // Add Course Form
+        document.getElementById('add-course-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const courseData = {
+                title: document.getElementById('course-title').value,
+                instructor: document.getElementById('course-instructor').value,
+                category: document.getElementById('course-category').value,
+                price: parseFloat(document.getElementById('course-price').value),
+                image: document.getElementById('course-image').value,
+                rating: 0,
+                students: 0,
+                duration: "0h",
+                level: "Beginner",
+                description: "New course added via admin panel."
+            };
+
+            const result = await API.addCourse(courseData);
+            if (result.success) {
+                alert('Course added successfully!');
+                closeModal();
+                loadCoursesList();
+                loadStats();
+                e.target.reset();
+            } else {
+                alert('Error adding course');
+            }
+        });
+
+        // Delete Course
+        async function deleteCourse(id) {
+            if (confirm('Are you sure you want to delete this course?')) {
+                const result = await API.deleteCourse(id);
+                if (result.success) {
+                    loadCoursesList();
+                    loadStats();
+                } else {
+                    alert('Error deleting course');
+                }
+            }
+        }
+
+        // Initialize
+        loadStats();
+    </script>
+</body>
+
+</html>

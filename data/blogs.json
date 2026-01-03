@@ -1,0 +1,28 @@
+{
+    "blogs": [
+        {
+            "id": 1,
+            "title": "5 Tips for Effective Online Learning",
+            "category": "Education",
+            "date": "Jan 3, 2026",
+            "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop",
+            "content": "Online learning has become a primary way for people to acquire new skills and knowledge. However, it requires a different set of discipline compared to traditional classrooms. Here are five tips to help you succeed:<br><br>1. **Create a Dedicated Workspace**: Having a specific place for your studies helps your brain switch into 'learning mode'.<br>2. **Set a Consistent Schedule**: Treat your online course like a real appointment. Consistency is key to completion.<br>3. **Minimize Distractions**: Turn off notifications and let others in your household know when you are studying.<br>4. **Engage with the Community**: Use forums and discussion boards to ask questions and share insights.<br>5. **Take Regular Breaks**: The Pomodoro technique (25 minutes of work followed by a 5-minute break) can help maintain focus."
+        },
+        {
+            "id": 2,
+            "title": "The Future of E-Learning in Nepal",
+            "category": "Technology",
+            "date": "Dec 28, 2025",
+            "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop",
+            "content": "E-learning in Nepal is at an exciting crossroads. With increasing internet penetration and smartphone usage, educational resources are becoming more accessible than ever before.<br><br>We are seeing a shift from traditional rote learning to more interactive, digital-first approaches. Platforms like A4K Mentors are leading this charge by providing localized content that addresses the specific needs of Nepali students and professionals.<br><br>The integration of AI and VR in education is also on the horizon, promising even more immersive learning experiences in the coming years."
+        },
+        {
+            "id": 3,
+            "title": "How to Choose the Right Course for Your Career",
+            "category": "Career",
+            "date": "Dec 20, 2025",
+            "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=250&fit=crop",
+            "content": "Choosing the right course can be overwhelming with so many options available. To make the right choice, consider the following:<br><br>First, identify your long-term career goals. Are you looking to switch careers or advance in your current one? Second, look at the instructor's credentials and industry experience. Third, check the curriculum to ensure it covers the latest tools and trends.<br><br>Don't just follow the hype—choose a course that provides practical, hands-on projects that you can add to your portfolio."
+        }
+    ]
+}
