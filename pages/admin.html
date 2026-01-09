@@ -10,16 +10,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <style>
-        .admin-layout {
-            display: grid;
-            grid-template-columns: 240px 1fr;
-            min-height: 100vh;
+        :root {
+            --sidebar-width: 260px;
+            --header-height: 70px;
         }
 
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            background: #f8f9fa;
+        }
+
+        /* Sidebar Styles */
         .sidebar {
+            width: var(--sidebar-width);
             background: #1a1a1a;
             color: white;
             padding: 24px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 100;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
         }
 
         .sidebar-logo {
@@ -27,6 +41,7 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 40px;
+            padding-left: 8px;
         }
 
         .sidebar-menu {
@@ -40,12 +55,13 @@
             padding: 12px 16px;
             border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             color: #ccc;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 12px;
+            font-size: 15px;
         }
 
         .menu-item:hover,
@@ -54,11 +70,86 @@
             color: white;
         }
 
-        .admin-main {
-            background: #f8f9fa;
-            padding: 40px;
+        .menu-item.active {
+            background: var(--primary-color);
+            color: white;
         }
 
+        /* Main Content Styles */
+        .admin-main {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            background: #f8f9fa;
+            transition: margin-left 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: #1a1a1a;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 99;
+        }
+
+        .mobile-toggle {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+                padding: 24px;
+                padding-top: 80px;
+                /* Space for mobile header */
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            .desktop-header-title {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+        }
+
+        /* General Styles */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -71,6 +162,7 @@
             padding: 24px;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
         }
 
         .stat-val {
@@ -87,10 +179,23 @@
 
         .tab-panel {
             display: none;
+            animation: fadeIn 0.3s ease;
         }
 
         .tab-panel.active {
             display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         table {
@@ -107,15 +212,24 @@
         }
 
         th {
-            background: #f3f3f3;
+            background: #f8f9fa;
             font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: var(--text-primary);
+            font-size: 15px;
         }
 
         .badge {
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .badge-admin {
@@ -123,20 +237,34 @@
             color: #4f46e5;
         }
 
+        .badge-student {
+            background: #f0fdf4;
+            color: #166534;
+        }
+
+        .badge-pending {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
         .action-btn {
             border: none;
             background: none;
             cursor: pointer;
-            padding: 4px;
+            padding: 6px;
             color: var(--text-light);
+            transition: color 0.2s;
+            border-radius: 4px;
         }
 
         .action-btn:hover {
             color: var(--primary-color);
+            background: #f3f4f6;
         }
 
         .action-btn.delete:hover {
             color: #ef4444;
+            background: #fef2f2;
         }
 
         .modal {
@@ -150,6 +278,7 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            backdrop-filter: blur(4px);
         }
 
         .modal-content {
@@ -159,14 +288,31 @@
             width: 500px;
             max-height: 90vh;
             overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-lg);
         }
     </style>
 </head>
 
 <body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <button class="mobile-toggle" onclick="toggleSidebar()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <span style="font-weight: 700; font-size: 18px;">Admin Panel</span>
+        </div>
+        <div id="mobile-user-info"></div>
+    </div>
+
     <div class="admin-layout">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="admin-sidebar">
             <div class="sidebar-logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#5026ff" />
@@ -202,6 +348,13 @@
                     </svg>
                     Users
                 </a>
+                <a href="#" class="menu-item" data-target="messages">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    Messages
+                </a>
                 <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0;">
                 <a href="../index.html" class="menu-item">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -216,7 +369,8 @@
         <!-- Main Content -->
         <main class="admin-main">
             <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
-                <h1 id="panel-title" style="font-size: 28px; font-weight: 700;">Dashboard Overview</h1>
+                <h1 id="panel-title" class="desktop-header-title" style="font-size: 28px; font-weight: 700;">Dashboard
+                    Overview</h1>
                 <div id="admin-user-info" style="display: flex; align-items: center; gap: 12px;">
                     <!-- User info will be injected here -->
                 </div>
@@ -245,7 +399,7 @@
 
                 <div class="admin-card">
                     <h3 style="margin-bottom: 20px;">Quick Actions</h3>
-                    <div style="display: flex; gap: 16px;">
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
                         <button class="btn btn-primary" onclick="showAddCourseModal()">+ Add New Course</button>
                     </div>
                 </div>
@@ -259,7 +413,7 @@
                         <h3>All Courses</h3>
                         <button class="btn btn-primary btn-sm" onclick="showAddCourseModal()">+ Add New</button>
                     </div>
-                    <div id="courses-table-container">
+                    <div id="courses-table-container" style="overflow-x: auto;">
                         <table>
                             <thead>
                                 <tr>
@@ -284,7 +438,7 @@
             <div id="users" class="tab-panel">
                 <div class="admin-card">
                     <h3>Registered Users</h3>
-                    <div id="users-table-container">
+                    <div id="users-table-container" style="overflow-x: auto;">
                         <table>
                             <thead>
                                 <tr>
@@ -298,6 +452,32 @@
                             <tbody id="users-list-body">
                                 <tr>
                                     <td colspan="5">Loading users...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Panel -->
+            <div id="messages" class="tab-panel">
+                <div class="admin-card">
+                    <h3>Instructor Applications</h3>
+                    <div id="messages-table-container" style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Expertise</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="messages-list-body">
+                                <tr>
+                                    <td colspan="5">Loading messages...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -375,7 +555,8 @@
                 const titles = {
                     dashboard: 'Dashboard Overview',
                     courses: 'Course Management',
-                    users: 'User Management'
+                    users: 'User Management',
+                    messages: 'Instructor Applications'
                 };
                 document.getElementById('panel-title').textContent = titles[target];
 
@@ -383,8 +564,18 @@
                 if (target === 'dashboard') loadStats();
                 if (target === 'courses') loadCoursesList();
                 if (target === 'users') loadUsersList();
+                if (target === 'messages') loadMessagesList();
+
+                // Close sidebar on mobile
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
             });
         });
+
+        function toggleSidebar() {
+            document.getElementById('admin-sidebar').classList.toggle('show');
+        }
 
         // Load stats
         async function loadStats() {
@@ -416,14 +607,114 @@
 
                     return `
                         <tr>
-                            <td>${u.name}</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="width: 32px; height: 32px; background: #e0e7ff; color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px;">
+                                        ${u.name.charAt(0)}
+                                    </div>
+                                    ${u.name}
+                                </div>
+                            </td>
                             <td>${u.email}</td>
-                            <td><span class="badge ${u.isAdmin ? 'badge-admin' : ''}">${u.isAdmin ? 'Admin' : 'Student'}</span></td>
+                            <td><span class="badge ${u.isAdmin ? 'badge-admin' : 'badge-student'}">${u.isAdmin ? 'Admin' : 'Student'}</span></td>
                             <td>${new Date(u.createdAt).toLocaleDateString()}</td>
                             <td>${actionBtn}</td>
                         </tr>
                     `;
                 }).join('');
+            }
+        }
+
+        // Load Messages
+        async function loadMessagesList() {
+            const result = await API.getAdminMessages();
+            const tbody = document.getElementById('messages-list-body');
+
+            if (result.success) {
+                if (result.messages.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-secondary);">No applications found</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = result.messages.map(m => {
+                    let statusBadge = 'badge-pending';
+                    if (m.status === 'accepted') statusBadge = 'badge-admin';
+                    if (m.status === 'rejected') statusBadge = 'badge-student'; // reusing red/green styles or similar
+
+                    // Custom style for rejected if needed, or use inline
+                    const badgeStyle = m.status === 'rejected' ? 'background: #fef2f2; color: #ef4444;' : '';
+
+                    return `
+                    <tr>
+                        <td>
+                            <div style="font-weight: 500;">${m.name}</div>
+                            <div style="font-size: 13px; color: var(--text-secondary);">${m.email}</div>
+                        </td>
+                        <td>${m.phone}</td>
+                        <td>
+                            <div style="font-size: 14px;">${m.expertise}</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">${m.experience} experience</div>
+                        </td>
+                        <td><span class="badge ${statusBadge}" style="${badgeStyle}">${m.status || 'pending'}</span></td>
+                        <td>${new Date(m.createdAt).toLocaleDateString()}</td>
+                        <td>
+                            <button class="action-btn" onclick="updateMessageStatus(${m.id}, 'accepted')" title="Accept">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </button>
+                            <button class="action-btn" onclick="updateMessageStatus(${m.id}, 'rejected')" title="Reject">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                            <button class="action-btn delete" onclick="deleteMessage(${m.id})" title="Delete">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </td>
+                    </tr>
+                `}).join('');
+            }
+        }
+
+        async function updateMessageStatus(id, status) {
+            console.log('Update status called:', id, status);
+            if (confirm(`Are you sure you want to mark this application as ${status}?`)) {
+                try {
+                    const result = await API.updateAdminMessageStatus(id, status);
+                    console.log('Update result:', result);
+                    if (result.success) {
+                        await loadMessagesList();
+                        // Force check pending status visually
+                        setTimeout(() => {
+                            const updatedRows = document.querySelectorAll('#messages-list-body tr');
+                            // Simple visual feedback if needed, but loadMessagesList should suffice. 
+                            // If user reports issues, we can force reload:
+                            // window.location.reload(); 
+                        }, 100);
+                        alert(`Application marked as ${status}`);
+                    } else {
+                        alert('Error updating status: ' + (result.message || 'Unknown error'));
+                    }
+                } catch (err) {
+                    console.error('Error in updateMessageStatus:', err);
+                    alert('Failed to update status. Check console.');
+                }
+            }
+        }
+
+        async function deleteMessage(id) {
+            console.log('Delete message called:', id);
+            if (confirm('Are you sure you want to delete this application?')) {
+                try {
+                    const result = await API.deleteAdminMessage(id);
+                    console.log('Delete result:', result);
+                    if (result.success) {
+                        await loadMessagesList();
+                        alert('Application deleted successfully');
+                    } else {
+                        alert('Error deleting application: ' + (result.message || 'Unknown error'));
+                    }
+                } catch (err) {
+                    console.error('Error in deleteMessage:', err);
+                    alert('Failed to delete message. Check console.');
+                }
             }
         }
 

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sign In - A<sup>4</sup>K Mentors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 40px 20px;
+        }
+
+        .auth-box {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 48px;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .auth-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .auth-subtitle {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(80, 38, 255, 0.1);
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            background: #1a1a1a;
+        }
+
+        .submit-btn:hover {
+            background: #000;
+        }
+
+        .auth-switch {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 24px;
+        }
+
+        .admin-badge {
+            background: #1a1a1a;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <span class="admin-badge">Admin Access</span>
+                <div class="logo" style="justify-content: center; margin-bottom: 24px;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#1a1a1a" />
+                        <path d="M2 17L12 22L22 17" stroke="#1a1a1a" stroke-width="2" />
+                        <path d="M2 12L12 17L22 12" stroke="#1a1a1a" stroke-width="2" />
+                    </svg>
+                    <span class="logo-text" style="color: #1a1a1a;">A<sup>4</sup>K Mentors</span>
+                </div>
+                <h1 class="auth-title">Admin Sign In</h1>
+                <p class="auth-subtitle">Welcome back, administrator.</p>
+            </div>
+
+            <form id="signin-form">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="admin@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Enter password" required>
+                </div>
+
+                <div class="form-footer">
+                    <label class="checkbox-label">
+                        <input type="checkbox">
+                        <span>Remember me</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary submit-btn">Access Dashboard</button>
+            </form>
+
+            <div class="auth-switch">
+                <a href="../index.html">Back to Website</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.getElementById('signin-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = e.target[0].value;
+            const password = e.target[1].value;
+            const rememberMe = e.target[2].checked;
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Verifying access...';
+
+            const result = await Auth.login(email, password, rememberMe);
+
+            if (result.success) {
+                if (result.user.isAdmin) {
+                    alert('Admin access granted. Welcome ' + result.user.name);
+                    window.location.href = 'admin.html';
+                } else {
+                    alert('Access Denied. You do not have administrator privileges.');
+                    Auth.logout(); // Logout if not admin
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Access Dashboard';
+                }
+            } else {
+                alert(result.message || 'Login failed.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Access Dashboard';
+            }
+        });
+    </script>
+</body>
+
+</html>
