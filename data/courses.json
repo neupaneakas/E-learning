@@ -26,7 +26,28 @@
         "Unsupervised Learning",
         "Deep Learning Basics",
         "Real-world Projects"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Python Cheat Sheet",
+          "url": "assets/docs/python-cheat-sheet.pdf"
+        },
+        {
+          "type": "video",
+          "title": "Course Introduction",
+          "url": "#"
+        },
+        {
+          "type": "pdf",
+          "title": "Project Files",
+          "url": "assets/docs/project-files.zip"
+        }
+      ],
+      "instructorContact": {
+        "email": "aakash@example.com",
+        "phone": "9800000001"
+      }
     },
     {
       "id": 2,
@@ -52,7 +73,23 @@
         "Accessibility in Color Design",
         "Brand Color Systems",
         "Tools and Resources"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Color Theory Guide",
+          "url": "#"
+        },
+        {
+          "type": "video",
+          "title": "Palette Creation Demo",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "anish@example.com",
+        "phone": "9800000002"
+      }
     },
     {
       "id": 3,
@@ -78,7 +115,23 @@
         "Strategic Planning",
         "Change Management",
         "Performance Metrics"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Leadership Framework",
+          "url": "#"
+        },
+        {
+          "type": "pdf",
+          "title": "Business Strategy Template",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "amit@example.com",
+        "phone": "9800000004"
+      }
     },
     {
       "id": 4,
@@ -104,7 +157,23 @@
         "Calculating Net Worth",
         "Financial Goals",
         "Investment Basics"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Budget Planner Excel",
+          "url": "#"
+        },
+        {
+          "type": "video",
+          "title": "Intro to Investing",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "asbin@example.com",
+        "phone": "9800000005"
+      }
     },
     {
       "id": 5,
@@ -130,7 +199,23 @@
         "Content Marketing",
         "Social Media Marketing",
         "Analytics and Metrics"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Brand Guidelines Template",
+          "url": "#"
+        },
+        {
+          "type": "video",
+          "title": "Marketing Case Study",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "krish@example.com",
+        "phone": "9800000006"
+      }
     },
     {
       "id": 6,
@@ -156,7 +241,23 @@
         "Color and Composition",
         "Vector Graphics",
         "Portfolio Projects"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Icon Grid Systems",
+          "url": "#"
+        },
+        {
+          "type": "pdf",
+          "title": "Vector Assets",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "aakash@example.com",
+        "phone": "9800000001"
+      }
     },
     {
       "id": 7,
@@ -184,7 +285,28 @@
         "RESTful APIs",
         "Authentication & Security",
         "Deployment & DevOps"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Full Stack Roadmap",
+          "url": "#"
+        },
+        {
+          "type": "video",
+          "title": "Environment Setup",
+          "url": "#"
+        },
+        {
+          "type": "pdf",
+          "title": "Code Snippets",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "anish@example.com",
+        "phone": "9800000002"
+      }
     },
     {
       "id": 8,
@@ -211,7 +333,23 @@
         "Prototyping with Figma",
         "Usability Testing",
         "Design Systems"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Figma Shortcuts",
+          "url": "#"
+        },
+        {
+          "type": "pdf",
+          "title": "UX Research Templates",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "amit@example.com",
+        "phone": "9800000004"
+      }
     },
     {
       "id": 9,
@@ -238,7 +376,23 @@
         "Content Strategy",
         "Email Marketing",
         "Analytics & Reporting"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "SEO Checklist",
+          "url": "#"
+        },
+        {
+          "type": "video",
+          "title": "Google Ads Walkthrough",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "asbin@example.com",
+        "phone": "9800000005"
+      }
     },
     {
       "id": 10,
@@ -265,7 +419,23 @@
         "Real Estate Investment",
         "Risk Management",
         "Retirement Planning"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Investment Calculator",
+          "url": "#"
+        },
+        {
+          "type": "pdf",
+          "title": "Retirement Planner",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "krish@example.com",
+        "phone": "9800000006"
+      }
     },
     {
       "id": 11,
@@ -292,7 +462,23 @@
         "Dashboard Design",
         "Predictive Analytics",
         "Case Studies"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "DataViz Cheatsheet",
+          "url": "#"
+        },
+        {
+          "type": "video",
+          "title": "Tableau Intro",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "aakash@example.com",
+        "phone": "9800000001"
+      }
     },
     {
       "id": 12,
@@ -318,7 +504,23 @@
         "Brand Identity Systems",
         "Client Presentation",
         "Portfolio Development"
-      ]
+      ],
+      "resources": [
+        {
+          "type": "pdf",
+          "title": "Logo Design Brief",
+          "url": "#"
+        },
+        {
+          "type": "video",
+          "title": "Sketching Basics",
+          "url": "#"
+        }
+      ],
+      "instructorContact": {
+        "email": "anish@example.com",
+        "phone": "9800000002"
+      }
     }
   ],
   "categories": [

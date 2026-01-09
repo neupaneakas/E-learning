@@ -27,6 +27,26 @@
       "createdAt": "2026-01-03T05:57:35.131Z",
       "isAdmin": false,
       "profileImage": null
+    },
+    {
+      "id": 4,
+      "name": "Anish Poudel",
+      "email": "anish@example.com",
+      "password": "password456",
+      "createdAt": "2026-01-09T09:00:00.000Z",
+      "isAdmin": true,
+      "phone": "9800000002",
+      "profileImage": "https://ui-avatars.com/api/?name=Anish+Poudel&background=random"
+    },
+    {
+      "id": 5,
+      "name": "Sandip Lamichhane",
+      "email": "sandip@example.com",
+      "password": "password789",
+      "createdAt": "2026-01-09T09:05:00.000Z",
+      "isAdmin": true,
+      "phone": "9800000003",
+      "profileImage": "https://ui-avatars.com/api/?name=Sandip+Lamichhane&background=random"
     }
   ]
 }
