@@ -131,12 +131,43 @@ app.post('/api/contact', (req, res) => {
     }
 });
 
+// Helper to read/write messages
+const loadMessages = () => {
+    const dataPath = path.join(__dirname, '../data/messages.json');
+    try {
+        const data = fs.readFileSync(dataPath, 'utf8');
+        return JSON.parse(data);
+    } catch (err) {
+        return { messages: [] };
+    }
+};
+
+const saveMessages = (data) => {
+    const dataPath = path.join(__dirname, '../data/messages.json');
+    fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+};
+
 // Instructor registration
 app.post('/api/become-instructor', (req, res) => {
     try {
         const { name, email, phone, expertise, experience, message } = req.body;
 
-        console.log('Instructor registration:', { name, email, phone, expertise, experience, message });
+        const messagesData = loadMessages();
+        const newMessage = {
+            id: messagesData.messages.length + 1,
+            type: 'instructor_request',
+            name,
+            email,
+            phone,
+            expertise,
+            experience,
+            message,
+            createdAt: new Date().toISOString(),
+            status: 'pending'
+        };
+
+        messagesData.messages.push(newMessage);
+        saveMessages(messagesData);
 
         res.json({
             success: true,
@@ -148,6 +179,63 @@ app.post('/api/become-instructor', (req, res) => {
             message: 'Error submitting application',
             error: error.message
         });
+    }
+});
+
+// Get Instructor Messages (Admin)
+app.get('/api/admin/messages', (req, res) => {
+    try {
+        const messagesData = loadMessages();
+        res.json({
+            success: true,
+            messages: messagesData.messages
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching messages'
+        });
+    }
+});
+
+// Update Message Status
+app.put('/api/admin/messages/:id/status', (req, res) => {
+    try {
+        const messageId = parseInt(req.params.id);
+        const { status } = req.body;
+        const messagesData = loadMessages();
+
+        const message = messagesData.messages.find(m => m.id === messageId);
+        if (!message) {
+            return res.status(404).json({ success: false, message: 'Message not found' });
+        }
+
+        message.status = status;
+        saveMessages(messagesData);
+
+        res.json({ success: true, message: `Application ${status}` });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error updating status' });
+    }
+});
+
+// Delete Message
+app.delete('/api/admin/messages/:id', (req, res) => {
+    try {
+        const messageId = parseInt(req.params.id);
+        const messagesData = loadMessages();
+
+        const initialLength = messagesData.messages.length;
+        messagesData.messages = messagesData.messages.filter(m => m.id !== messageId);
+
+        if (messagesData.messages.length === initialLength) {
+            return res.status(404).json({ success: false, message: 'Message not found' });
+        }
+
+        saveMessages(messagesData);
+        res.json({ success: true, message: 'Message deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error deleting message' });
     }
 });
 
@@ -732,6 +820,7 @@ if (process.env.NODE_ENV !== 'production') {
         console.log(`   - POST /api/admin/courses`);
         console.log(`   - DELETE /api/admin/courses/:id`);
         console.log(`   - PUT  /api/admin/users/:userId/role`);
+        console.log(`   - GET  /api/admin/messages`);
     });
 }
 

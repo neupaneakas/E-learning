@@ -207,7 +207,9 @@ const Auth = {
                 if (!existingAdminLink) {
                     const li = document.createElement('li');
                     li.id = 'dynamic-admin-link';
-                    li.innerHTML = `<a href="${dashboardPath}" class="nav-link" style="color: var(--primary-color); font-weight: 700;">Admin Dashboard</a>`;
+                    // User Request: Force login page when clicking Admin Dashboard
+                    const adminLoginPath = isSubPage ? 'admin-login.html' : 'pages/admin-login.html';
+                    li.innerHTML = `<a href="${adminLoginPath}" class="nav-link" style="color: var(--primary-color); font-weight: 700;">Admin Dashboard</a>`;
                     navMenu.appendChild(li);
                 }
             } else if (navMenu) {

@@ -1,5 +1,7 @@
 // This is the address where our backend server lives
-const API_BASE_URL = '/api';
+const API_BASE_URL = (window.location.protocol === 'file:' || window.location.hostname === '')
+    ? 'http://localhost:3000/api'
+    : '/api';
 
 // These are helpers to talk to the backend
 const API = {
@@ -106,6 +108,44 @@ const API = {
         } catch (error) {
             console.error('Error fetching admin users:', error);
             return { success: false, users: [] };
+        }
+    },
+
+    async getAdminMessages() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/admin/messages?t=${Date.now()}`);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching admin messages:', error);
+            return { success: false, messages: [] };
+        }
+    },
+
+    async updateAdminMessageStatus(id, status) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/admin/messages/${id}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status })
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating message status:', error);
+            return { success: false, message: 'Error updating status' };
+        }
+    },
+
+    async deleteAdminMessage(id) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/admin/messages/${id}`, {
+                method: 'DELETE'
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error deleting message:', error);
+            return { success: false, message: 'Error deleting message' };
         }
     },
 
