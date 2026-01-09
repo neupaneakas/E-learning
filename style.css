@@ -882,3 +882,106 @@ button {
         font-size: 14px;
     }
 }
+
+/* ===================================
+   Social Login Buttons
+   =================================== */
+.social-login {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.social-btn {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: var(--transition);
+    cursor: pointer;
+    background: white;
+    color: var(--text-primary);
+}
+
+.social-btn:hover {
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+/* ===================================
+   Dark Mode
+   =================================== */
+.dark-mode {
+    --bg-white: #1a1a1a;
+    --bg-light: #2d2d2d;
+    --bg-cream: #222222;
+    --text-primary: #ffffff;
+    --text-secondary: #aaaaaa;
+    --border-color: #404040;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .header {
+    background: rgba(26, 26, 26, 0.95);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dark-mode .course-card {
+    background: #2d2d2d;
+    border: 1px solid var(--border-color);
+}
+
+.dark-mode .social-btn {
+    background: #2d2d2d;
+    color: #ffffff;
+}
+
+.dark-mode input,
+.dark-mode select {
+    background: #2d2d2d;
+    color: white;
+    border-color: var(--border-color);
+}
+
+.dark-mode .modal-content {
+    background: #2d2d2d;
+    color: white;
+    border: 1px solid var(--border-color);
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+    margin-right: 8px;
+}
+
+.theme-toggle:hover {
+    transform: rotate(15deg);
+    color: var(--primary-color);
+}
+
+.dark-mode .footer {
+    background: #1a1a1a;
+    /* Dark background */
+    color: #e0e0e0;
+    /* Light text */
+    border-top: 1px solid var(--border-color);
+}
+
+.dark-mode .footer-content p {
+    color: #b0b0b0;
+    /* Slightly dimmer text for specifics */
+}

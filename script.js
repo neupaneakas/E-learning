@@ -328,6 +328,61 @@ if (searchInput) {
     });
 }
 
+// ===================================
+// Theme Toggle Logic
+// ===================================
+
+const themeButtons = document.querySelectorAll('.theme-toggle');
+
+// Function to update UI based on theme
+function updateThemeUI(theme) {
+    const isDark = theme === 'dark';
+
+    // Toggle body class
+    if (isDark) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+
+    // Toggle icons for all buttons
+    themeButtons.forEach(btn => {
+        const sunIcon = btn.querySelector('.sun-icon');
+        const moonIcon = btn.querySelector('.moon-icon');
+
+        if (sunIcon && moonIcon) {
+            if (isDark) {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        }
+    });
+
+    // Save to local storage
+    localStorage.setItem('theme', theme);
+}
+
+// Initialize theme
+const currentTheme = localStorage.getItem('theme') || 'light';
+updateThemeUI(currentTheme);
+
+// Add event listeners
+// Add event listeners with safety check
+if (themeButtons.length > 0) {
+    themeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const isDark = document.body.classList.contains('dark-mode');
+            const newTheme = isDark ? 'light' : 'dark';
+            updateThemeUI(newTheme);
+        });
+    });
+}
+
+console.log('Theme toggle initialized');
+
 // Load courses on page load
 if (document.querySelector('.course-grid')) {
     loadCourses();
